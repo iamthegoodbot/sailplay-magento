@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Sailplay_Integrator>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Sailplay_Integrator>
+	</modules>
+</config>

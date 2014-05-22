@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+		<sailplay translate="label" module="sailplay_integrator">
+            <label>SailPlay</label>
+            <sort_order>200</sort_order>
+		</sailplay>
+    </tabs>
+    <sections>
+		<sailplay_integrator translate="label" module="sailplay_integrator">
+			<label>Настройки</label>
+			<tab>sailplay</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>10</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<general translate="label">
+					<label>General</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled translate="label">
+							<label>Включить</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>
+						<store_department_id translate="label">
+                        	<label>ID вашего магазина в системе SailPlay</label>
+                        	<frontend_type>text</frontend_type>
+                        	<sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </store_department_id>                    
+                        <store_department_key translate="label">
+                        	<label>Ключ вашего магазина в системе SailPlay</label>
+                        	<frontend_type>text</frontend_type>
+                        	<sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </store_department_key>                    
+                        <pin_code translate="label">
+                        	<label>PIN-код для запросов к API</label>
+                        	<frontend_type>text</frontend_type>
+                        	<sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </pin_code>                    
+                        <lastupdate translate="label">
+                        	<label>Последнее обновление токена</label>
+                        	<frontend_type>text</frontend_type>
+                        	<sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </lastupdate>                   
+                        <token translate="label">
+                        	<label>Токен</label>
+                        	<frontend_type>text</frontend_type>
+                        	<sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Дата и токен обновляются при запросе каждые 12 часов. Остальные данные ID, Ключ, PIN-код нужно скопировать из панель http://sailplay.ru/ вкладка “настройки -> интеграция”.</comment>
+                        </token>
+					</fields>
+				</general>
+			</groups>
+		</sailplay_integrator>
+    </sections>
+</config>

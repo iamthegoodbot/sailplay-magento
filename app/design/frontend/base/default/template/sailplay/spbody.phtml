@@ -1,0 +1,81 @@
+<?php
+//http://sailplay.ru/api/v1/login/?store_department_key=66016604&store_department_id=621&pin_code=7915
+?>
+
+<script charset="utf-8" type="text/javascript">
+	var _publicKey = "none";
+	
+
+	if(document.getElementById("publicKey"))
+		_publicKey = document.getElementById("publicKey").value;
+	
+	console.log(_publicKey);
+	
+	var _sp_options = {
+		publicKey: _publicKey,
+		partnerId: "537",
+		position: ["top", "right"],
+		notifications: {
+			enabled: true,
+			skin: {type: 'horizontal', position: ['bottom', 'right']}
+		}
+	};
+	(function() {
+		var sp = document.createElement("script");
+		sp.type = "text/javascript"; sp.async = true; sp.charset = "utf-8";
+		sp.src = ("https:" == document.location.protocol ? "https://" : "http://") +
+			"sailplay.ru/popup-sdk/js/sailplay/537/";
+		var scr = document.getElementsByTagName("script")[0]; scr.parentNode.insertBefore(sp, scr);
+	})();
+  
+	function setCookie(cname,cvalue,exdays)
+	{
+		var d = new Date();
+		d.setTime(d.getTime()+(exdays*24*60*60*1000));
+		var expires = "expires="+d.toGMTString();
+		document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+	
+	function getCookie(cname)
+	{
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) 
+		{
+			var c = ca[i].trim();
+			if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+		}
+		return "";
+	}
+	
+	var sailplay_auth_hash =  getCookie('sailplay_auth_hash');
+	
+	var isloggedin = <?php echo $this->isLoggedIn() ?>;
+	
+	document.observe('dom:loaded', function(){
+		if(isloggedin==true){
+			if(!sailplay_auth_hash){
+			
+				var url = 'http://sailplay.ru/api/v2/users/info/';
+				var parameters = {'token':'<?php echo $this->token ?>','store_department_id':'<?php echo $this->store_department_id ?>','user_phone':'37379133978','extra_fields':'auth_hash'};
+				 
+				var request = new Ajax.Request(url,{
+                    method: 'get',
+                    parameters:parameters,
+                    onSuccess: function(response){	
+						console.log(response);
+						//response.responseText.evalJSON()
+						//get auth_hash
+						//set to Cookie
+						//setCookie('sailplay_auth_hash', 'w8075pyqp7087423', 10)
+					}
+				});
+			}			
+		}
+		else
+			if(sailplay_auth_hash!='')			
+				setCookie('sailplay_auth_hash', '', 1)
+			
+	});
+	
+</script>

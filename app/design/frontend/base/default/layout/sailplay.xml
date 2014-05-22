@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+	<default>				
+		<reference name="before_body_end" ifconfig="sailplay_integrator/general/enabled">
+			<block type="sailplay_integrator/spbody" name="sailplay" as="sailPlay" translate="label" template="sailplay/spbody.phtml">
+			</block>
+		</reference>
+	</default>
+	<checkout_onepage_success>
+		<reference name="content" ifconfig="sailplay_integrator/general/enabled">
+			<block type="sailplay_integrator/ordersuccess" name="ordersuccess" as="orderSuccess" translate="label" template="sailplay/ordersuccess.phtml">
+			</block>
+		</reference>
+	</checkout_onepage_success>
+	<checkout_cart_index translate="label">
+		<reference name="content">
+			<block type="core/template" name="gift" template="sailplay/gift.phtml"/>
+		</reference>
+		<reference name="checkout.cart">
+			<action method="addItemRender">
+				<type>simple</type><block>checkout/cart_item_renderer</block><template>sailplay/cart/item/default.phtml</template>
+			</action>
+		</reference>
+	</checkout_cart_index>
+</layout>
