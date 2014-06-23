@@ -32,9 +32,7 @@ class Sailplay_Integrator_Model_API extends Mage_Core_Model_Abstract{
 	
 	//Метод получения auth_hash
 	public function getAuthHash(){
-		
-		/*		http://sailplay.ru/api/v2/users/info/?token=1acdad937c27516e06a2ba0eee4de246836756f1&store_department_id=621&user_phone=37379133978&extra_fields=auth_hash
-		*/
+
 		
 		$api_params = null;
 		$customerAddressId  = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling();
@@ -52,9 +50,7 @@ class Sailplay_Integrator_Model_API extends Mage_Core_Model_Abstract{
 	
 	//Метод создания покупки	
 	public function purchases($user_phone, $order_num, $price){
-	
-		//http://sailplay.ru/api/v1/purchases/new/?user_phone=79266004070&token=7ce324861c4a5de5bfe931c04d96073f9b72bfec&store_department_id=2&pin_code=3122&price=993&fields=public_key,order_num&order_num=132123
-		
+
 		$api_params = null;
 		
 		$api_params['token'] = $this->token;
@@ -71,11 +67,9 @@ class Sailplay_Integrator_Model_API extends Mage_Core_Model_Abstract{
 	}
 	
 	//Метод получения информации о клиенте
-	//user_idnt = user_phone||email
 	public function getUserByPhone($user_phone){
 		
 		$api_params = null;	
-
 
 		$api_params['token'] = $this->token;
 		$api_params['store_department_id'] = $this->store_department_id;
@@ -89,8 +83,7 @@ class Sailplay_Integrator_Model_API extends Mage_Core_Model_Abstract{
 			return null;
 		
 		return $result;
-		
-		
+
 	}
 	
 	public function getUserByEmail($email){

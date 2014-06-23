@@ -55,10 +55,7 @@ class Sailplay_Integrator_Model_Observer_User extends Mage_Core_Model_Abstract{
 					$customer->getData('lastname'),
 					'', '', ''
 				);
-			
-			//var_dump($result);
-			//exit;
-			
+
 		}
 		
 	}

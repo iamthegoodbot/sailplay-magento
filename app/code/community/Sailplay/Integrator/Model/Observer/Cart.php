@@ -45,11 +45,7 @@ class Sailplay_Integrator_Model_Observer_Cart extends Mage_Core_Model_Abstract{
 			if($item->getPrice()==0&&$item->getPrice()!=null){
 				$item->setData('gift_message_id', '10');
 				$item->setQty(1);
-				//$quote->getCart()->updateItem(array($item->getId()=>array('qty'=>$qty)));
-				//exit;
 			}
-				//$item->setQty(1);
-				//$quote->updateItem(array($item->getId()=>array('qty'=>1)));
 		}
 		
 		$quote->save();
