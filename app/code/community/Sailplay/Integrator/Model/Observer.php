@@ -13,15 +13,19 @@ class Sailplay_Integrator_Model_Observer extends Mage_Core_Model_Abstract{
 	
 	}
   
-	public function orderConfirm(Varien_Event_Observer $observer) {		
-		
+	public function orderConfirm(Varien_Event_Observer $observer) {	
+	
 		$_event = $observer->getEvent();
 		$_invoice = $_event->getInvoice();
-		$_order = $_invoice->getOrder();
+		if($_invoice)
+			$_order = $_invoice->getOrder();
+		else
+			$_order = $_event->getShipment()->getOrder();		
+		
 		$_orderId = $_order->getIncrementId();
 	    $_amount = $_order->getGrandTotal() - $_order->getShippingAmount();
-		
-		//$this->api_model->purchaseConfirm($_orderId, $_amount);
+		$result = $this->api_model->purchaseConfirm($_orderId, $_amount);
 		
 	}
 }
+

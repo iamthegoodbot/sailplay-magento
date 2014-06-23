@@ -45,7 +45,7 @@ class Sailplay_Integrator_Model_Order extends Mage_Core_Model_Abstract{
 	    $_amount = $order->getGrandTotal() - $order->getShippingAmount();
 		
 		$result  = $this->api_model->purchases($user_phone, $_orderId, $_amount);		
-		
+
 		return $result['purchase']['public_key'];		
 	}
 }

@@ -76,7 +76,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Дата и токен обновляются при запросе каждые 12 часов. Остальные данные ID, Ключ, PIN-код нужно скопировать из панель http://sailplay.ru/ вкладка “настройки -> интеграция”.</comment>
+                            <comment>Дата и токен обновляются при запросе каждые 12 часов. Остальные данные ID, Ключ, PIN-код нужно скопировать из панели http://sailplay.ru/ вкладка “настройки -> интеграция”.</comment>
                         </token>
 					</fields>
 				</general>

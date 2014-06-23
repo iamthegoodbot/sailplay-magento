@@ -10,11 +10,12 @@
 		_publicKey = document.getElementById("publicKey").value;
 	
 	console.log(_publicKey);
-	
+	var _auth_hash = '<?php echo $this->getAuthash() ?>';
 	var _sp_options = {
 		publicKey: _publicKey,
 		partnerId: "537",
 		position: ["top", "right"],
+		authHash: _auth_hash,
 		notifications: {
 			enabled: true,
 			skin: {type: 'horizontal', position: ['bottom', 'right']}
@@ -49,6 +50,7 @@
 	}
 	
 	var sailplay_auth_hash =  getCookie('sailplay_auth_hash');
+	console.log("sailplay_auth_hash:" + sailplay_auth_hash);
 	
 	var isloggedin = <?php echo $this->isLoggedIn() ?>;
 	
@@ -56,18 +58,13 @@
 		if(isloggedin==true){
 			if(!sailplay_auth_hash){
 			
-				var url = 'http://sailplay.ru/api/v2/users/info/';
-				var parameters = {'token':'<?php echo $this->token ?>','store_department_id':'<?php echo $this->store_department_id ?>','user_phone':'37379133978','extra_fields':'auth_hash'};
+				var url = '<?php echo Mage::getBaseUrl('web') ?>sailplay/index/getauthash';				
 				 
 				var request = new Ajax.Request(url,{
                     method: 'get',
-                    parameters:parameters,
                     onSuccess: function(response){	
-						console.log(response);
-						//response.responseText.evalJSON()
-						//get auth_hash
-						//set to Cookie
-						//setCookie('sailplay_auth_hash', 'w8075pyqp7087423', 10)
+						console.log(response.responseText);
+						setCookie('sailplay_auth_hash', response.responseText, 10)
 					}
 				});
 			}			
@@ -78,4 +75,69 @@
 			
 	});
 	
+</script>
+
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript">
+	jQuery.noConflict();
+	
+  jQuery(function( $ ){
+    window.SPready = function(SP) {
+      $('input[name=origin-user-id-enabled]').change(function(){
+        if ($(this).is(":checked")) {
+          $('.form-group.origin-user-id').fadeIn('fast');
+        }
+        else {
+          $('.form-group.origin-user-id').fadeOut('fast');
+        }
+      });
+
+      $('form.user-points').submit(function(e) {
+        e.preventDefault();
+        SP.api.getUserPoints({
+          originUserId: $('#origin-user-id').val(),
+          callback: function(data) {
+            $('pre.user-points-result').text(JSON.stringify(data, undefined, 2));
+          }
+        });
+      });
+
+      $('.open-popup').click(function() {
+        SP.showPopup();
+      });
+
+     $('select[name=target]').change(function() {
+
+       if ($(this).val() == 'gift') {
+         $('.gift-sku').slideToggle();
+       }
+       else {
+         $('.gift-sku').hide();
+       }
+     });
+
+      $('.open-popup-on-target').click(function() {
+        SP.showPopup({
+          openReload: true,
+          openTo: {
+            target: $('select[name=target]').find('option:selected').val(),
+            giftSku: $('input[name=gift-sku]').val()
+          }
+        });
+      });
+	  
+
+
+      SP.bindCallback('afterPopupClose', function() {
+        console.log('Попап был закрыт');
+      });
+
+      SP.events.subscribe('gift', function(data) {
+		console.log(data);
+                location.reload();
+      });
+    }
+  });
 </script>

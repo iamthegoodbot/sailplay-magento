@@ -22,4 +22,11 @@
 			</action>
 		</reference>
 	</checkout_cart_index>
+
+<customer_account_logoutsuccess translate="label">
+      <reference name="content" ifconfig="sailplay_integrator/general/enabled">
+			<block type="sailplay_integrator/logout" name="logout" as="logout" translate="label" template="sailplay/logout.phtml">
+			</block>
+		</reference>
+    </customer_account_logoutsuccess>
 </layout>

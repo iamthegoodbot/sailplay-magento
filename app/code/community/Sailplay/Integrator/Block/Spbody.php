@@ -51,6 +51,13 @@ class Sailplay_Integrator_Block_Spbody extends Mage_Core_Block_Template
 	}
 	
 	
+	public function getAuthash()     
+	{
+		$authash =  Mage::getModel('sailplay_integrator/api')->getAuthHash();
+		return $authash;
+	}
+	
+	
 	protected function _toHtml()
     {
 		if (!Mage::getStoreConfig(self::XML_PATH_ENABLED))

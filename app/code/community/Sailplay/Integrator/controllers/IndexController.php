@@ -15,20 +15,38 @@ class Sailplay_Integrator_IndexController extends Mage_Core_Controller_Front_Act
     {
 		$product_model = Mage::getModel('catalog/product');
     
-		$_product_sku = $_GET['sku'];//'n2610';        
+		$_product_sku = $_GET['gift_sku'];//'n2610'; 
+		$gift_public_key = $_GET['gift_public_key'];
+		$api_model =  Mage::getModel('sailplay_integrator/api');
+
+		//check bonus
+		//sailplay.ru/api/v1/ecommerce/gifts/commit-transaction/
+
+		
+		$result = Mage::getModel('sailplay_integrator/api')->checkGift($gift_public_key);
+/*
+//первый запрос по урл
+{"status": "ok", "purchase_gift": {"already_completed": false, "gift": 897, "is_completed": true, "gift_sku": "n2610", "purchase_date": "2014-05-30T22:41:30", "complete_date": "2014-05-30T22:52:28.383", "id": 55155, "points_delta": 1, "user": "37379133978"}}
+
+//второй запрос по урл
+{"status": "ok", "purchase_gift": {"already_completed": false, "gift": 897, "is_completed": true, "gift_sku": "n2610", "purchase_date": "2014-05-30T22:41:30", "complete_date": "2014-05-30T22:52:28", "id": 55155, "points_delta": 1, "user": "37379133978"}}
+*/
+		
 		$_product_id  = $product_model->getIdBySku($_product_sku);
 		$_product     = $product_model->load($_product_id);
 		
 		
-		/*
+		
 		//check found item in cart
 		$quote = Mage::getSingleton('checkout/session')->getQuote();		
 		$items = $quote->getAllItems();		
 		foreach($items as $item) {	
-			if($item->getProduct()->getId() == $_product_id)
-				$this->_redirect('checkout/cart');
+			if($item->getProduct()->getId() == $_product_id){
+				//$this->_redirect('checkout/cart');
+				return;
+			}
 		}
-		*/
+		
 		
 		$qty_value = 1;
     
@@ -45,7 +63,8 @@ class Sailplay_Integrator_IndexController extends Mage_Core_Controller_Front_Act
 		Mage::getSingleton('catalog/session')->addSuccess($this->__('Подарок '.$_product->getName().''));
 		
 		
-		$this->_redirect('checkout/cart');
+		//$this->_redirect('checkout/cart');
+		return;
 		
     }
 	
@@ -54,6 +73,14 @@ class Sailplay_Integrator_IndexController extends Mage_Core_Controller_Front_Act
     {
 		$params = $_POST;
 		var_dump($params);
+    }
+	
+	//POST
+	public function getauthashAction()
+    {
+		$authash =  Mage::getModel('sailplay_integrator/api')->getAuthHash();
+		
+		echo $authash;		
     }
 	
 }

@@ -21,7 +21,16 @@
                 <class>Sailplay_Integrator_Model</class>
             </sailplay_integrator>
         </models>
-		<events>           
+		<events>    
+			<sales_order_save_after>
+			    <observers>
+                    <sailplay>
+                        <type>model</type>
+                        <class>Sailplay_Integrator_Model_Observer</class>
+                        <method>orderNew</method>
+                    </sailplay>
+                </observers>
+			</sales_order_save_after>
             <sales_order_invoice_save_after>
                 <observers>
                     <sailplay>
@@ -30,7 +39,8 @@
                         <method>orderConfirm</method>
                     </sailplay>
                 </observers>
-            </sales_order_invoice_save_after>			
+            </sales_order_invoice_save_after>	
+			
             <sales_order_shipment_save_after>
                 <observers>
                     <sailplay>
@@ -49,6 +59,15 @@
                     </sailplay>
                 </observers>
             </customer_login>
+			<controller_action_postdispatch_customer_account_logout>			
+                <observers>
+                    <sailplay>
+                        <type>model</type>
+                        <class>Sailplay_Integrator_Model_Observer_User</class>
+                        <method>logoutRemote</method>
+                    </sailplay>
+                </observers>
+			</controller_action_postdispatch_customer_account_logout>
 			<customer_register_success>
                 <observers>
                     <sailplay>

@@ -1,0 +1,13 @@
+
+<script>
+document.observe("dom:loaded", function() {
+ 
+new Ajax.Request('http://sailplay.ru/users/logout/?partner_id=<?php echo $this->partner_id ?>', {
+  onSuccess: function(response) {
+    console.log(response);
+  }
+});
+
+
+});
+</script>

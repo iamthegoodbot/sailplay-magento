@@ -11,7 +11,7 @@ class Sailplay_Integrator_Model_Observer_Cart extends Mage_Core_Model_Abstract{
 	
 	public function setFree(Varien_Event_Observer $observer) {
 		
-		if($_GET['remote']=='1'){
+		if($_GET['gift_sku']){
 		
 			$item = $observer->getQuoteItem();
 			if ($item->getParentItem()) {
@@ -28,6 +28,7 @@ class Sailplay_Integrator_Model_Observer_Cart extends Mage_Core_Model_Abstract{
 			
 			$item->setCustomPrice($specialPrice);
 			$item->setOriginalCustomPrice($specialPrice);
+			$item->setData('gift_message_id', '10');
 			$item->getProduct()->setIsSuperMode(true);			
 		}	
 		
@@ -42,7 +43,7 @@ class Sailplay_Integrator_Model_Observer_Cart extends Mage_Core_Model_Abstract{
 		foreach($items as $item) {	
 			
 			if($item->getPrice()==0&&$item->getPrice()!=null){
-				$item->setData('gift_message_id', $item->getId());
+				$item->setData('gift_message_id', '10');
 				$item->setQty(1);
 				//$quote->getCart()->updateItem(array($item->getId()=>array('qty'=>$qty)));
 				//exit;
